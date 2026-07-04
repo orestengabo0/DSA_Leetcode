@@ -117,6 +117,20 @@ Node* deleteAtPosition(Node* head, int p){
     return head;
 }
 
+Node* reverse(Node* head){
+    Node* curr = head;
+    Node* prev = NULL;
+    Node* n = NULL;
+
+    while(curr!=NULL){
+        n = curr->next;
+        curr->next=prev;
+        prev=curr;
+        curr=n;
+    }
+    return prev;
+}
+
 void printList(Node *head)
 {
     while (head != NULL)
@@ -170,6 +184,11 @@ int main()
 
     head = deleteAtPosition(head, 3);
     cout<<"After deleting at position 3: ";
+    printList(head);
+    cout<<"\n";
+
+    head = reverse(head);
+    cout<<"Reversed List: ";
     printList(head);
     cout<<"\n";
     
