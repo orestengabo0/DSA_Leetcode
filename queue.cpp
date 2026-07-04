@@ -1,17 +1,20 @@
 #include<iostream>
 
 using namespace std;
-
-const int SIZE = 5;
-
 struct Queue {
     int rear;
     int front;
-    int arr[SIZE];
+    int* arr;
+    int capacity;
 
-    Queue(){
+    Queue(int size){
         rear=-1;
         front=-1;
+        capacity = 5;
+    }
+
+    ~Queue(){
+        delete[] arr;
     }
 
     bool isEmpty(){
@@ -19,22 +22,21 @@ struct Queue {
     }
 
     bool isFull(){
-        return rear == SIZE - 1;
+        return rear == capacity - 1;
     }
 
     void enqueue(int val){
         if(isFull()){
-            cout<<"Overflow.\n";
-            return;
+            resize();
         }
 
-        if(rear == -1){
+        if(isEmpty()){
             front = 0;
         }
         rear++;
         arr[rear] = val;
 
-        cout<<val<<"inserted\n";
+        cout<<val<<" inserted\n";
     }
 
     void dequeue(){
@@ -69,10 +71,28 @@ struct Queue {
         }
         cout<<endl;
     }
+
+    void resize(){
+        int newCapacity =  capacity * 2;
+        int *newArray = new int[newCapacity];
+        int j=0;
+        for(int i=front; i<=rear; i++){
+            newArray[j++]=arr[i];
+        }
+        delete arr;
+        arr=newArray;
+        j=j-1;
+        front=0;
+        capacity=newCapacity;
+        cout<<"Queue Resized to "<<capacity<<".\n";
+    }
 };
 
 int main(){
-    Queue q;
+    Queue q(5);
+    q.enqueue(10);
+    q.enqueue(30);
+    q.enqueue(50);
     q.enqueue(10);
     q.enqueue(30);
     q.enqueue(50);
