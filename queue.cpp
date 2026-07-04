@@ -4,13 +4,11 @@ using namespace std;
 
 const int SIZE = 5;
 
-class Queue {
-    private:
+struct Queue {
     int rear;
     int front;
     int arr[SIZE];
 
-    public:
     Queue(){
         rear=-1;
         front=-1;
