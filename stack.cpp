@@ -31,10 +31,23 @@ struct Stack{
         return nextIndex;
     }
 
+    void resize(){
+        int newCapacity = capacity * 2;
+        int* newArray = new int[newCapacity]; 
+        int j=0;
+        for(int i=0; i<=capacity; i++){
+            newArray[j++]=arr[i];
+        }
+        delete arr;
+        arr = newArray;
+        j=j-1;
+        capacity = newCapacity;
+        cout<<"Resized Stack to: "<<capacity<<endl;
+    }
+
     void push(int ele){
         if(isFull()){
-            cout<<"Overflow.\n";
-            return;
+            resize();
         }
         arr[nextIndex]=ele;
         nextIndex++;
@@ -66,6 +79,9 @@ struct Stack{
 
 int main(){
     Stack st;
+    st.push(12);
+    st.push(4);
+    st.push(6);
     st.push(12);
     st.push(4);
     st.push(6);
